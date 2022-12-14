@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 
 public class Review {
+    private Order order;
     final static int MIN_NUMBER_OF_SYMBOLS = 3000;
     final static int MIN_RATE = 0;
     final static int MAX_RATE = 5;

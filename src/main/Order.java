@@ -9,7 +9,9 @@ public class Order {
     private Status status;
     private Customer customer;
     private List<Shoes> itemsWithPrice;
+    private List<Review> reviews;
     private boolean isPaid;
+    
     public enum Status {
         DELIVERED, READY_TO_BE_SHIPPED, SHIPPING, ASSEMBLED, CANCELED
     }
@@ -32,5 +34,25 @@ public class Order {
 
     public Status checkCustomerOrder() {
         return status;
+    }
+
+    public String viewOrder(){
+
+    }
+
+    public boolean sendToEmployee(){
+
+    }
+
+    public boolean generateConfirmationLetter(){
+
+    }
+
+    public void updateDeliveryStatus(){
+
+    }
+
+    public Status checkDeliveryStatus(){
+
     }
 }
