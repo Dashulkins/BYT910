@@ -9,22 +9,22 @@ public class Review {
     private double rating;
     private LocalDate reviewDate;
 
-    public Review (String description, double rating, LocalDate reviewDate) throws ReviewLengthException, TimeAfterNowException, ReviewRatingException {
+    public Review (String description, double rating, LocalDate reviewDate) throws StringLengthException, TimeAfterNowException, ReviewRatingException {
         this(description, reviewDate);
         setRating(rating);
     }
 
-    public Review (String description, LocalDate reviewDate) throws ReviewLengthException, TimeAfterNowException {
+    public Review (String description, LocalDate reviewDate) throws StringLengthException, TimeAfterNowException {
         setDescription(description);
         setReviewDate(reviewDate);
     }
 
-    public Review (String description, double rating) throws ReviewLengthException, TimeAfterNowException, ReviewRatingException {
+    public Review (String description, double rating) throws StringLengthException, TimeAfterNowException, ReviewRatingException {
         this(description);
         setRating(rating);
     }
 
-    public Review (String description) throws ReviewLengthException, TimeAfterNowException{
+    public Review (String description) throws StringLengthException, TimeAfterNowException{
         setDescription(description);
         setReviewDate(LocalDate.now());
     }
@@ -45,9 +45,9 @@ public class Review {
         return reviewDate;
     }
 
-    public void setDescription(String description) throws ReviewLengthException {
+    public void setDescription(String description) throws StringLengthException {
         if(description.isEmpty() || description.length() < MIN_NUMBER_OF_SYMBOLS){
-            throw new ReviewLengthException();
+            throw new StringLengthException();
         }else{
             this.description = description;
         }
