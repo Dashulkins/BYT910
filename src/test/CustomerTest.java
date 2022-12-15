@@ -2,6 +2,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CustomerTest {
@@ -12,6 +15,7 @@ public class CustomerTest {
     public void SetUp() throws Exception {
         test_customer = new Customer("Jane", "Dou",
                 "000-000-000" , "username@domain.com", "Qwerty123!");
+
     }
 
 
@@ -108,34 +112,45 @@ public class CustomerTest {
         Assert.assertEquals(0.0, test_customer.getDiscount(), 0);
     }
 
+    @Test
+    public void testGetOrders() {
+        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(new Order(Long.valueOf(1), LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
+        test_customer.setOrders(orders);
+        Assert.assertEquals("Warsaw, Koszykowa 86", test_customer.getOrders().get(0).getAddress());
+    }
+
+
+
 
     //setters test
     @Test
-    public void testSetFName() throws UserNameException {
+    public void testSetFName() throws NameException {
         test_customer.setFirstName("John");
         Assert.assertEquals("John", test_customer.getFirstName());
     }
 
     @Test
-    public void testSetLName() throws UserSurnameException {
+    public void testSetLName() throws SurnameException {
         test_customer.setLastName("Smith");
         Assert.assertEquals("Smith", test_customer.getLastName());
     }
 
     @Test
-    public void testSetEmail() throws UserEmailException {
+    public void testSetEmail() throws EmailException {
         test_customer.setEmail("janedou1@gmail.com");
         Assert.assertEquals("janedou1@gmail.com", test_customer.getEmail());
     }
 
     @Test
-    public void testSetPhone() throws UserPhoneException {
+    public void testSetPhone() throws PhoneException {
         test_customer.setPhone("999-999-999");
         Assert.assertEquals("999-999-999", test_customer.getPhone());
     }
 
     @Test
-    public void testSetPassword() throws UserPasswordException {
+    public void testSetPassword() throws PasswordException {
         test_customer.setPassword("QwErTy123@4");
         Assert.assertEquals("QwErTy123@4", test_customer.getPassword());
     }
@@ -146,10 +161,19 @@ public class CustomerTest {
         Assert.assertEquals(0.05, test_customer.getDiscount(), 0);
     }
 
+    @Test
+    public void testSetOrders() {
+        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(new Order(Long.valueOf(1), LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
+        test_customer.setOrders(orders);
+        Assert.assertEquals("Warsaw, Koszykowa 86", test_customer.getOrders().get(0).getAddress());
+    }
+
 
     //edit data
     @Test
-    public void testEditData() throws UserNameException, UserEmailException, UserPhoneException, UserPasswordException, UserSurnameException {
+    public void testEditData() throws NameException, EmailException, PhoneException, PasswordException, SurnameException {
         test_customer.editData("John", null, "jndou567@gmail.com", null, "Aa!123456");
         Assert.assertEquals("John", test_customer.getFirstName());
         Assert.assertEquals("Dou", test_customer.getLastName());

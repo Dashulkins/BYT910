@@ -18,7 +18,7 @@ abstract class User {
     private final static Pattern firstLastNamesPattern = Pattern.compile("^[A-Z][a-z]*$");
 
 
-    public User(String fName, String lName, String phone,String email, String password) throws UserNameException, UserEmailException, UserPhoneException, UserPasswordException, UserSurnameException {
+    public User(String fName, String lName, String phone,String email, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException {
         setFirstName(fName);
         setLastName(lName);
         setPhone(phone);
@@ -58,11 +58,11 @@ abstract class User {
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws UserNameException{
+    public void setFirstName(String firstName) throws NameException {
         if(isValidFirstName(firstName)) {
             this.firstName = firstName;
         } else {
-            throw new UserNameException();
+            throw new NameException();
         }
     }
 
@@ -70,11 +70,11 @@ abstract class User {
         return lastName;
     }
 
-    public void setLastName(String lastName) throws UserSurnameException{
+    public void setLastName(String lastName) throws SurnameException {
         if(isValidLastName(lastName)) {
             this.lastName = lastName;
         } else {
-            throw new UserSurnameException();
+            throw new SurnameException();
         }
     }
 
@@ -83,11 +83,11 @@ abstract class User {
         return password;
     }
 
-    public void setPassword(String password) throws UserPasswordException {
+    public void setPassword(String password) throws PasswordException {
         if(isValidPassword(password)) {
             this.password = password;
         } else {
-            throw new UserPasswordException();
+            throw new PasswordException();
         }
     }
 
@@ -96,11 +96,11 @@ abstract class User {
         return email;
     }
 
-    public void setEmail(String email) throws UserEmailException {
+    public void setEmail(String email) throws EmailException {
         if (isValidEmail(email)) {
             this.email = email;
         }else {
-            throw new UserEmailException();
+            throw new EmailException();
         }
 
     }
@@ -109,66 +109,15 @@ abstract class User {
         return phone;
     }
 
-    public void setPhone(String phone) throws UserPhoneException {
+    public void setPhone(String phone) throws PhoneException {
         if(isValidPhone(phone)) {
             this.phone = phone;
         } else {
-            throw new UserPhoneException();
+            throw new PhoneException();
         }
     }
 
-
-    //if we can not validate new data -> saves old data
-   /* public void changeFirstName(String newFName) {
-        String old = this.firstName;
-        try{
-            setFirstName(newFName);
-        }catch (UserNameException e) {
-            this.firstName = old;
-        }
-    }
-
-    public void changeLastName(String newLName) {
-        String old = this.lastName;
-        try{
-            setLastName(newLName);
-        }catch (UserNameException e) {
-            this.lastName = old;
-        }
-    }
-
-    public void changeEmail(String newEmail) {
-        String old = this.email;
-        try{
-            setEmail(newEmail);
-        }catch (UserEmailException e) {
-            this.email = old;
-        }
-    }
-
-
-    public void changePhone(String newPhone) {
-        String old = this.phone;
-        try{
-            setPhone(newPhone);
-        }catch (UserPhoneException e) {
-            this.phone = old;
-        }
-    }
-
-
-    public void changePassword(String newPassword) { //if we can't verify password -> password stay old
-        String oldPassword = this.password;
-        try {
-            setPassword(newPassword);
-        } catch(UserPasswordException e) {
-            this.password = oldPassword;
-        }
-    }*/
-
-
-
-    public void editData(String fName, String lName, String email, String phone, String password) throws UserNameException, UserEmailException, UserPhoneException, UserPasswordException, UserSurnameException {//подумать надо ли писать change методы для всего
+    public void editData(String fName, String lName, String email, String phone, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException {//подумать надо ли писать change методы для всего
         if (fName != null) {
             setFirstName(fName);
         }

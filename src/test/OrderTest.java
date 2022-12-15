@@ -14,7 +14,7 @@ public class OrderTest {
 
     @Before
     public void setUp(){
-        formatter = formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         testOrder = new Order(Long.valueOf(1), LocalDateTime.parse("23-12-2021 12:33", formatter), "New York, st. Liberty, 14/44",
                 true);
@@ -69,7 +69,7 @@ public class OrderTest {
     }
 
     @Test
-    public void getCustomer() throws UserEmailException, UserSurnameException, UserPhoneException, UserPasswordException, UserNameException {
+    public void getCustomer() throws EmailException, SurnameException, PhoneException, PasswordException, NameException {
         Customer customer = new Customer("Misha", "Mihailenko", "563-782-098", "mishanya@mail.ru", "Misha456!");
         testOrder.setCustomer(customer);
         Assert.assertEquals("Misha", testOrder.getCustomer().getFirstName());
@@ -160,7 +160,7 @@ public class OrderTest {
     }
 
     @Test
-    public void setCustomer() throws UserEmailException, UserSurnameException, UserPhoneException, UserPasswordException, UserNameException {
+    public void setCustomer() throws EmailException, SurnameException, PhoneException, PasswordException, NameException {
         Customer customer1 = new Customer("Misha", "Mihailenko", "563-782-098", "mishanya@mail.ru", "Misha456!");
         testOrder.setCustomer(customer1);
         Assert.assertEquals("mishanya@mail.ru", testOrder.getCustomer().getEmail());
