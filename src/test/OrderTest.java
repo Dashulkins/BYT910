@@ -244,9 +244,9 @@ public class OrderTest {
     @Test
     public void checkCustomerOrder() {
         testOrder.setStatus(Order.Status.READY_TO_BE_SHIPPED);
-        Assert.assertEquals("READY_TO_BE_SHIPPED", testOrder.getStatus().toString());
+        Assert.assertEquals("READY_TO_BE_SHIPPED", testOrder.checkCustomerOrder().toString());
         testOrder.setStatus(Order.Status.SHIPPING);
-        Assert.assertEquals("SHIPPING", testOrder.getStatus().toString());
+        Assert.assertEquals("SHIPPING", testOrder.checkCustomerOrder().toString());
     }
 
     @Test
