@@ -24,7 +24,7 @@ public class Review {
         setRating(rating);
     }
 
-    public Review (String description) throws StringLengthException, TimeAfterNowException{
+    public Review (String description) throws StringLengthException, TimeAfterNowException {
         setDescription(description);
         setReviewDate(LocalDate.now());
     }

@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class OrderTest {
     Order testOrder;
     DateTimeFormatter formatter;
@@ -140,7 +141,6 @@ public class OrderTest {
             isFuture = true;
         }
         Assert.assertEquals(true, isFuture);
-
     }
 
     @Test
@@ -203,7 +203,7 @@ public class OrderTest {
                 "While this can be upsetting to read, this type of negative feedback can be very helpful to your business in the long run. Negative reviews that offer specific reasons can show you exactly where your business is missing the mark.  When responding to this review, address each concern the customer has. Take ownership of where you went wrong, and explain how you are planning to improve. \n" +
                 "While this can be upsetting to read, this type of negative feedback can be very helpful to your business in the long run. Negative reviews that offer specific reasons can show you exactly where your business is missing the mark.  When responding to this review, address each concern the customer has. Take ownership of where you went wrong, and explain how you are planning to improve. \n",
                 3.2, LocalDate.parse("20-11-2022", formatter1));
-        List reviews = new ArrayList();
+        List <Review> reviews = new ArrayList();
         reviews.add(testReview);
         testOrder.setReviews(reviews);
         Assert.assertEquals(1, testOrder.getReviews().size());
