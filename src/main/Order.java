@@ -15,6 +15,13 @@ public class Order {
         DELIVERED, READY_TO_BE_SHIPPED, SHIPPING, ASSEMBLED, CANCELED
     }
 
+    public Order(Long id, LocalDateTime dateOfPlacement, String address, boolean isPaid){
+        this.id = id;
+        this.dateOfPlacement = dateOfPlacement;
+        this.address = address;
+        this.isPaid = isPaid;
+    }
+
     public Long getId() {
         return id;
     }
@@ -45,6 +52,18 @@ public class Order {
 
     public List<Shoes> getItemsWithPrice() {
         return itemsWithPrice;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setItemsWithPrice(List<Shoes> itemsWithPrice) {
+        this.itemsWithPrice = itemsWithPrice;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public boolean getIsPaid(){
@@ -129,7 +148,7 @@ public class Order {
     }
 
     public void updateDeliveryStatus(Status status){
-
+        setStatus(status);
     }
 
     public Status checkDeliveryStatus(){
