@@ -6,12 +6,12 @@ public class Shoes {
     private boolean isCustom;
     private int size;
 
-public Shoes(String name,int id,double price, boolean isCustom, int size){
+Shoes(String name,int id,double price, boolean isCustom, int size) throws ShoeSizeException{
     this.name = name;
     this.id = id;
     this.price = price;
     this.isCustom = isCustom;
-    this.size = size;
+    this.setSize(size);
 }
 public String getName(){
     return name;
@@ -50,6 +50,7 @@ public void setSize(int size) throws ShoeSizeException{
 public void changeProductDetails(String name,int id,double price, boolean isCustom, int size) throws ShoeSizeException {
 
        setName(name);
+       setId(id);
        setPrice(price);
        setCustom(isCustom);
        setSize(size);
