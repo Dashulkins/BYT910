@@ -6,7 +6,7 @@ public class Shoes {
     private boolean isCustom;
     private int size;
 
-Shoes(String name,int id,double price, boolean isCustom, int size) throws ShoeSizeException{
+public Shoes(String name,int id,double price, boolean isCustom, int size){
     this.name = name;
     this.id = id;
     this.price = price;
