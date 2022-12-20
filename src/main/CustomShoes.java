@@ -1,9 +1,10 @@
-public class CustomShoes extends Shoes{
+
+public class CustomShoes {
     private String description;
     private boolean img;
+    private Shoes shoes;
     private String custom_type;
-    CustomShoes(String name, int id, double price, boolean isCustom, int size,String description,boolean img, String custom_type) {
-        super(name, id, price, true, size);
+    CustomShoes(String description,boolean img, String custom_type) {
         this.description = description;
         this.img = img;
         this.custom_type = custom_type;
@@ -32,7 +33,7 @@ public class CustomShoes extends Shoes{
     public void setCustom_type(String custom_type) {
         this.custom_type = custom_type;
     }
-    public CustomShoes CreateCustomShoes(Shoes shoes,String description,boolean img,String custom_type){
-      return new CustomShoes(shoes.getName(),shoes.getId(),shoes.getPrice(),true,shoes.getSize(),description,img,custom_type);
+    public boolean CreateCustomShoes(){
+        return true;
     }
 }
