@@ -1,4 +1,4 @@
-import org.junit.Assert;
+mport org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import org.junit.Test;
 public class ShoesTest {
     Shoes testshoes;
 @Before
-    public void setUp() {
+    public void setUp() throws ShoeSizeException{
     testshoes = new Shoes("Shoe1",1,22.40,false,36);
 }
 @Test
@@ -48,7 +48,7 @@ public class ShoesTest {
 @Test
     public void testSetShoeCustom(){
     testshoes.setCustom(true);
-    Assert.assertEquals(true,testshoes.getCustom());
+    Assert.assertTrue(testshoes.getCustom());
 }
 @Test
     public void testSetShoeSize() throws ShoeSizeException {
@@ -79,7 +79,7 @@ public class ShoesTest {
     Assert.assertEquals(39,testshoes.getSize());
 }
 @Test
-    public void testlistAllBestSellers(){
+    public void testListAllBestSellers(){
     Assert.assertTrue(testshoes.listAllBestSellers());
 }
 }
