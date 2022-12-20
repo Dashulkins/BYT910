@@ -81,7 +81,7 @@ public class OrderTest {
     }
 
     @Test
-    public void getItemsWithPrice() {
+    public void getItemsWithPrice() throws ShoeSizeException {
         Shoes shoes1 = new Shoes("boots",4, 45.3, false, 36);
         Shoes shoes2 = new Shoes("heels",6, 87.9, true, 39);
         List<Shoes> shoesList = new ArrayList<>();
@@ -174,7 +174,7 @@ public class OrderTest {
     }
 
     @Test
-    public void setItemsWithPrice() {
+    public void setItemsWithPrice() throws ShoeSizeException {
         Shoes shoes1 = new Shoes("boots",4, 45.3, false, 36);
         Shoes shoes2 = new Shoes("heels",6, 87.9, true, 39);
         List<Shoes> shoesList = new ArrayList<>();
