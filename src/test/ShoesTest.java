@@ -7,7 +7,7 @@ import org.junit.Test;
 public class ShoesTest {
     Shoes testshoes;
 @Before
-    public void setUp() throws ShoeSizeException{
+    public void setUp() {
     testshoes = new Shoes("Shoe1",1,22.40,false,36);
 }
 @Test
