@@ -1,3 +1,4 @@
+import java.lang.Exception;
 public class Shoes {
     private String name;
     private int id;
@@ -5,7 +6,7 @@ public class Shoes {
     private boolean isCustom;
     private int size;
 
-Shoes(String name,int id,double price, boolean isCustom, int size){
+Shoes(String name,int id,double price, boolean isCustom, int size) throws ShoeSizeException{
     this.name = name;
     this.id = id;
     this.price = price;
@@ -39,13 +40,21 @@ public void setPrice(double price){
 public void setCustom(boolean isCustom){
     this.isCustom = isCustom;
 }
-public void setSize(int size){
-    this.size = size;
+public void setSize(int size) throws ShoeSizeException{
+    if(size<36 || size>45){
+        throw new ShoeSizeException();
+    }else {
+        this.size = size;
+    }
 }
-public void changeProductDetails(Shoes shoes, double price,boolean isCustom,int size){
-    shoes.setName(name);
-    shoes.setPrice(price);
-    shoes.setCustom(isCustom);
-    shoes.setSize(size);
+public void changeProductDetails(String name,int id,double price, boolean isCustom, int size) throws ShoeSizeException {
+
+       setName(name);
+       setPrice(price);
+       setCustom(isCustom);
+       setSize(size);
+}
+public boolean listAllBestSellers(){
+    return true;
 }
 }
