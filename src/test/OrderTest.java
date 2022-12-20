@@ -17,7 +17,7 @@ public class OrderTest {
     public void setUp(){
         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        testOrder = new Order(Long.valueOf(1), LocalDateTime.parse("23-12-2021 12:33", formatter), "New York, st. Liberty, 14/44",
+        testOrder = new Order(1L, LocalDateTime.parse("23-12-2021 12:33", formatter), "New York, st. Liberty, 14/44",
                 true);
     }
 
@@ -38,9 +38,9 @@ public class OrderTest {
     @Test
     public void getStatus() {
         testOrder.setStatus(Order.Status.ASSEMBLED);
-        Assert.assertEquals("ASSEMBLED", testOrder.getStatus().toString());
+        Assert.assertEquals(Order.Status.ASSEMBLED, testOrder.getStatus());
         testOrder.setStatus(Order.Status.DELIVERED);
-        Assert.assertEquals("DELIVERED", testOrder.getStatus().toString());
+        Assert.assertEquals(Order.Status.DELIVERED, testOrder.getStatus());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class OrderTest {
                 "While this can be upsetting to read, this type of negative feedback can be very helpful to your business in the long run. Negative reviews that offer specific reasons can show you exactly where your business is missing the mark.  When responding to this review, address each concern the customer has. Take ownership of where you went wrong, and explain how you are planning to improve. \n" +
                 "While this can be upsetting to read, this type of negative feedback can be very helpful to your business in the long run. Negative reviews that offer specific reasons can show you exactly where your business is missing the mark.  When responding to this review, address each concern the customer has. Take ownership of where you went wrong, and explain how you are planning to improve. \n",
                 4.6, LocalDate.parse("23-12-2021", formatter1));
-        List reviews = new ArrayList();
+        List <Review> reviews = new ArrayList();
         reviews.add(testReview);
         testOrder.setReviews(reviews);
         Assert.assertEquals(1, testOrder.getReviews().size());
@@ -94,16 +94,16 @@ public class OrderTest {
 
     @Test
     public void getIsPaid(){
-        Assert.assertEquals(true, testOrder.getIsPaid());
+        Assert.assertTrue(testOrder.getIsPaid());
         testOrder.setPaid(false);
-        Assert.assertEquals(false, testOrder.getIsPaid());
+        Assert.assertFalse(testOrder.getIsPaid());
     }
 
     @Test
     public void setId() {
-        testOrder.setId(Long.valueOf(6));
+        testOrder.setId(6L);
         Assert.assertEquals(Long.valueOf(6), testOrder.getId());
-        testOrder.setId(Long.valueOf(10));
+        testOrder.setId(10L);
         Assert.assertEquals(Long.valueOf(10), testOrder.getId());
     }
 
@@ -117,15 +117,15 @@ public class OrderTest {
         }catch (StringLengthException ignored){
             isNull = true;
         }
-        Assert.assertEquals(true, isNull);
+        Assert.assertTrue(isNull);
     }
 
     @Test
     public void setStatus() {
         testOrder.setStatus(Order.Status.DELIVERED);
-        Assert.assertEquals("DELIVERED", testOrder.getStatus().toString());
+        Assert.assertEquals(Order.Status.DELIVERED, testOrder.getStatus());
         testOrder.setStatus(Order.Status.CANCELED);
-        Assert.assertEquals("CANCELED", testOrder.getStatus().toString());
+        Assert.assertEquals(Order.Status.CANCELED, testOrder.getStatus());
     }
 
     @Test
@@ -140,15 +140,15 @@ public class OrderTest {
         }catch (TimeAfterNowException ignored){
             isFuture = true;
         }
-        Assert.assertEquals(true, isFuture);
+        Assert.assertTrue(isFuture);
     }
 
     @Test
     public void setPaid() {
         testOrder.setPaid(false);
-        Assert.assertEquals(false, testOrder.getIsPaid());
+        Assert.assertFalse(testOrder.getIsPaid());
         testOrder.setPaid(true);
-        Assert.assertEquals(true, testOrder.getIsPaid());
+        Assert.assertTrue(testOrder.getIsPaid());
     }
 
     @Test
@@ -182,11 +182,11 @@ public class OrderTest {
         testOrder.setItemsWithPrice(shoesList);
         Assert.assertEquals(4, testOrder.getItemsWithPrice().get(0).getId());
         Assert.assertEquals(36, testOrder.getItemsWithPrice().get(0).getSize());
-        Assert.assertEquals(false, testOrder.getItemsWithPrice().get(0).getCustom());
+        Assert.assertFalse(testOrder.getItemsWithPrice().get(0).getCustom());
         shoesList.add(shoes2);
         Assert.assertEquals(6, testOrder.getItemsWithPrice().get(1).getId());
         Assert.assertEquals(39, testOrder.getItemsWithPrice().get(1).getSize());
-        Assert.assertEquals(true, testOrder.getItemsWithPrice().get(1).getCustom());
+        Assert.assertTrue(testOrder.getItemsWithPrice().get(1).getCustom());
     }
 
     @Test
@@ -244,9 +244,9 @@ public class OrderTest {
     @Test
     public void checkCustomerOrder() {
         testOrder.setStatus(Order.Status.READY_TO_BE_SHIPPED);
-        Assert.assertEquals("READY_TO_BE_SHIPPED", testOrder.checkCustomerOrder().toString());
+        Assert.assertEquals(Order.Status.READY_TO_BE_SHIPPED, testOrder.checkCustomerOrder());
         testOrder.setStatus(Order.Status.SHIPPING);
-        Assert.assertEquals("SHIPPING", testOrder.checkCustomerOrder().toString());
+        Assert.assertEquals(Order.Status.SHIPPING, testOrder.checkCustomerOrder());
     }
 
     @Test
@@ -257,29 +257,29 @@ public class OrderTest {
 
     @Test
     public void sendToEmployee(){
-        Assert.assertEquals(true, testOrder.sendToEmployee());
-        Assert.assertNotEquals(false, testOrder.sendToEmployee());
+        Assert.assertTrue(testOrder.sendToEmployee());
+        Assert.assertFalse(!testOrder.sendToEmployee());
     }
 
     @Test
     public void generateConfirmationLetter(){
-        Assert.assertNotEquals(false, testOrder.generateConfirmationLetter());
-        Assert.assertEquals(true, testOrder.generateConfirmationLetter());
+        Assert.assertFalse(!testOrder.generateConfirmationLetter());
+        Assert.assertTrue(testOrder.generateConfirmationLetter());
     }
 
     @Test
     public void updateDeliveryStatus(){
         testOrder.updateDeliveryStatus(Order.Status.ASSEMBLED);
-        Assert.assertEquals("ASSEMBLED", testOrder.getStatus().toString());
+        Assert.assertEquals(Order.Status.ASSEMBLED, testOrder.getStatus());
         testOrder.updateDeliveryStatus(Order.Status.READY_TO_BE_SHIPPED);
-        Assert.assertEquals("READY_TO_BE_SHIPPED", testOrder.getStatus().toString());
+        Assert.assertEquals(Order.Status.READY_TO_BE_SHIPPED, testOrder.getStatus());
     }
 
     @Test
     public void checkDeliveryStatus(){
         testOrder.setStatus(Order.Status.READY_TO_BE_SHIPPED);
-        Assert.assertEquals("READY_TO_BE_SHIPPED", testOrder.checkDeliveryStatus().toString());
+        Assert.assertEquals(Order.Status.READY_TO_BE_SHIPPED, testOrder.checkDeliveryStatus());
         testOrder.setStatus(Order.Status.SHIPPING);
-        Assert.assertEquals("SHIPPING", testOrder.checkDeliveryStatus().toString());
+        Assert.assertEquals(Order.Status.SHIPPING, testOrder.checkDeliveryStatus());
     }
 }

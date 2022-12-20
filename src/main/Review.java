@@ -46,7 +46,7 @@ public class Review {
     }
 
     public void setDescription(String description) throws StringLengthException {
-        if(description.isEmpty() || description.length() < MIN_NUMBER_OF_SYMBOLS){
+        if(description.length() < MIN_NUMBER_OF_SYMBOLS){
             throw new StringLengthException();
         }else{
             this.description = description;
