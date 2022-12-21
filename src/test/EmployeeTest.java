@@ -1,27 +1,26 @@
-
 import main.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class EmployeeTest {
     Employee test_employee;
-    DateTimeFormatter formatter;
+    LocalDateTime formatter;
 
     @Before
     public void SetUp() throws Exception {
-        // LocalDate formatter1 = LocalDate.parse("dd-MM-yyyy");
-        test_employee = new Employee("Ostin", "Johs",
-                "123-456-789", "ostinjohs1@domain.com", "rHsOa275");
+        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        test_employee = new Employee(25.5, "81010200112", 5500.0, 4675.0, LocalDateTime.parse("01-02-2022 08:30",formatter), LocalDateTime.parse("28-02-2022 17:30",formatter));
     }
 
     @Test
-    public void testGetHoutly_rate() {
-        Assert.assertEquals(Optional.of(25.5), test_employee.getHourly_rate());
-    }
+    public void testGetHourlyRate() throws HourlyRateException {
+        test_employee.setHourlyRate(25.5);
+        Assert.assertEquals(25.5, test_employee.getHourlyRate(),0);}
 
     @Test
     public void testGetPesel() {
@@ -39,25 +38,27 @@ public class EmployeeTest {
     }
 
     @Test
-    public void testGetHire_date() {
+    public void testGetHireDate() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        Assert.assertEquals((LocalDateTime.parse("01-02-2022 08:30", formatter)), test_employee.getHireDate());
 
     }
 
     @Test
-    public void testGetFinish_date() {
+    public void testGetFinishDate() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        Assert.assertEquals((LocalDateTime.parse("28-02-2022 17:30",formatter)), test_employee.getFinishDate());
 
     }
 
     @Test
-    public void testSetHourly_rate() {
-        test_employee.setHourly_rate(25.5);
-        Assert.assertEquals(false, test_employee.getHourly_rate());
+    public void testSetHourlyRate() throws HourlyRateException {
+        test_employee.setHourlyRate(25.5);
+        Assert.assertEquals(25.5, test_employee.getHourlyRate(),0);
     }
 
     @Test
-    public void testSetPesel() {
+    public void testSetPesel() throws EmpPeselException {
         test_employee.setPesel("81010200112");
         {
             Assert.assertEquals("81010200112", test_employee.getPesel());
@@ -66,24 +67,24 @@ public class EmployeeTest {
 
     @Test
     public void testSetSalary() {
-        test_employee.setSalary(5500);
+        test_employee.setSalary();
         Assert.assertEquals(5500, test_employee.getSalary(), 0.02);
     }
 
     @Test
     public void setNetSalary() {
-        test_employee.setNetSalary(4675);
+        test_employee.setNetSalary(4675, 825);
         Assert.assertEquals(4675, test_employee.getNetSalary(), 0.02);
     }
 
     @Test
-    public void setHire_date() {
-        test_employee.setHire_date();
+    public void setHireDate() {
+        test_employee.setHireDate();
     }
 
     @Test
-    public void setFinish_date() {
-        test_employee.setFinish_date();
+    public void setFinishDate() {
+        test_employee.setFinishDate();
     }
 
     @Test
