@@ -1,5 +1,3 @@
-package main;
-
 import java.time.*;
 
 public class Employee extends User{
