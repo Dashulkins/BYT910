@@ -3,7 +3,7 @@ import java.time.*;
 public class Employee extends User{
     private Role role;
     private Double hourlyRate;
-    private static String pesel;
+    private String pesel;
     private Double salary;
     private Double netSalary;
     LocalDateTime hireDate;
