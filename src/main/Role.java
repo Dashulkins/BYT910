@@ -1,4 +1,3 @@
-package main;
 
 public class Role  {
     private Employee employee;
