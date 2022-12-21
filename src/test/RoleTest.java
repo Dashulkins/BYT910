@@ -1,4 +1,3 @@
-package test;
 import main.Role;
 import org.junit.Assert;
 import org.junit.Before;
