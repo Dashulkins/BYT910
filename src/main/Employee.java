@@ -1,115 +1,64 @@
-import java.sql.Timestamp;
-import java.time.*;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.IntStream;
+package main;
 
-public class Employee extends User {
-    private static final int START_OF_WORK = 9;
-    private static final int END_OF_WORK = 18;
-    private static final long MINUTES = 60;
-    private static final long WORK_HOURS_PER_DAY = END_OF_WORK - START_OF_WORK;
-    private static final long WORK_MINUTES_PER_DAY = WORK_HOURS_PER_DAY * MINUTES;
-    private static final Pattern peselPattern = Pattern.compile("^[0-9]{11}$");
+import java.time.*;
+
+public class Employee extends User{
 
     private double hourly_rate;
-    private String pesel;
+    private static String pesel;
     private double salary;
-    //private double netSalary;
-    private Timestamp hire_date;
-    private Timestamp finish_date;
-    private ArrayList<Role> roles; //aggregation with Role class
+    private double netSalary;
+    LocalDate hire_date;
+    LocalDate finish_date;
 
-    public Employee(String fName, String lName, String phone, String email, String password,double hourly_rate, String pesel, double salary, Timestamp hire_date, Timestamp finish_date) throws EmpPeselException, PhoneException, PasswordException, NameException, EmailException, SurnameException {
+    public Employee(String fName, String lName, String phone, String email, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException, EmpPeselException {
         super(fName, lName, phone, email, password);
         this.hourly_rate = hourly_rate;
-        setPesel(pesel);
         this.salary = salary;
+        this.pesel = pesel;
+        this.netSalary = netSalary;
         this.hire_date = hire_date;
         this.finish_date = finish_date;
-        roles = new ArrayList<>();
     }
 
-    public boolean isValidPesel(String pesel)  {
-        Matcher matcher = peselPattern.matcher(pesel);
-        return matcher.matches();
+
+    public Double getHourly_rate() {return hourly_rate; }
+
+    public static String getPesel() {return pesel;}
+
+    public double getSalary() {return salary;}
+
+    public double getNetSalary() {return netSalary;}
+
+    public LocalDate getHire_date() {return hire_date;}
+
+    public LocalDate getFinish_date() {return finish_date;}
+
+    public void setHourly_rate(double v) {this.hourly_rate = hourly_rate;}
+
+    public void setPesel(String pesel) {this.pesel = Employee.pesel;}
+
+    public void setSalary(int i) {this.salary = salary;}
+
+    public void setNetSalary(int i) {this.netSalary = netSalary;}
+
+    public void setHire_date() {this.hire_date = hire_date;}
+
+    public void setFinish_date() {this.finish_date = finish_date;}
+
+    public boolean CalculateWorkingHours() {
+        return true;
+    }
+    public void CalculateSalary(int pfppercentage) {
+        double pfamount = salary * (pfppercentage / 100);
+        netSalary = salary - pfamount;
     }
 
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) throws EmpPeselException {
-        if(isValidPesel(pesel)) {
-            this.pesel = pesel;
-        }else {
-            throw new EmpPeselException();
-        }
-
-    }
-
-    public Timestamp getHire_date() {
-        return hire_date;
-    }
-
-    public int getWorkMinuterFrom(final Timestamp hire_date, Timestamp now) {
-        now = Timestamp.from(Instant.now());
-        return getWorkMinuterFrom(hire_date, now);
-    }
-
-    public int CalculateWorkHours(final Timestamp hire_date, final Timestamp finish_date){
-        if(null == hire_date || null == finish_date) {
-            throw  new IllegalStateException();
-        }
-        if(finish_date.before(hire_date)) {
-            return  0;
-        }
-        LocalDateTime from = hire_date.toLocalDateTime();
-        LocalDateTime to = finish_date.toLocalDateTime();
-
-        LocalDate fromDay = from.toLocalDate();
-        LocalDate toDay = to.toLocalDate();
-
-        int allDaysBetween = (int) (ChronoUnit.DAYS.between(fromDay,toDay)+1);
-        long allWorkHours = IntStream.range(0, allDaysBetween)
-                .filter(i -> isWorkingDay(from.plusDays(i)))
-                .count() * WORK_HOURS_PER_DAY;
-
-        //from- work day from start;
-        long tailRedundantHours = 0;
-        if (isWorkingDay(from)) {
-            if(isWorkingHours(from)) {
-                tailRedundantHours = Duration.between(fromDay.atTime(START_OF_WORK, 0), from).toHours();
-            }else if (from.getHour() > START_OF_WORK) {
-                tailRedundantHours = WORK_HOURS_PER_DAY;
-            }
-        }
-
-        //work day en - to
-        long headRedundanHours = 0;
-        if( isWorkingDay(to)) {
-            if(isWorkingHours(to)) {
-                headRedundanHours = Duration.between(to, toDay.atTime(END_OF_WORK,0)).toHours();
-            }else if(from.getHour() < START_OF_WORK) {
-                headRedundanHours = WORK_HOURS_PER_DAY;
-            }
-        }
-        return (int) (allWorkHours = tailRedundantHours - headRedundanHours);
-    }
-
-    private  boolean isWorkingDay(final  LocalDateTime time) {
-        return  time.getDayOfWeek().getValue() < DayOfWeek.SATURDAY.getValue();
-    }
-
-    private boolean isWorkingHours( final LocalDateTime time) {
-        int hour = time.getHour();
-        return START_OF_WORK <= hour && hour <= END_OF_WORK;
-    }
-
-    //public void CalculateSalary(int pfppercentage){ // зарплата = рабочий час * часовая ставка
-     //   double pfamount = salary*( pfppercentage / 100);
-      //  netSalary = salary - pfamount;
-    //}
+    public static boolean PeselValidation(String pesel) throws EmpPeselException {
+            int psize = pesel.length();
+            if (psize != 11) {return false;
+            }else {
+                return true;
+            }}
 }
+
