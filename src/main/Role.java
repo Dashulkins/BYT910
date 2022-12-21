@@ -1,8 +1,6 @@
-
 public class Role  {
-    private Employee employee;
     private String name;
-    private static int authorities;
+    private int authorities;
     private String description;
     
     public Role(String name, int authorities, String description) {
@@ -13,7 +11,7 @@ public class Role  {
     
     public String getName() {return name;}
 
-    public static int getAuthorities() {return authorities;}
+    public  int getAuthorities() {return authorities;}
 
     public String getDescription(){return description;}
 
