@@ -8,7 +8,7 @@ public class ShoesTest {
 
     @Before
     public void setUp() throws ShoeSizeException {
-        testshoes = new Shoes("Shoe1", 1, 22.40, false, 36);
+        testshoes = new Shoes("Shoe1", 1, 22.40, false, Shoes.Size.Size_36, "link");
     }
 
     @Test
@@ -33,8 +33,20 @@ public class ShoesTest {
 
     @Test
     public void testGetSize() {
-        Assert.assertEquals(36, testshoes.getSize());
+        Assert.assertEquals(Shoes.Size.Size_36, testshoes.getSize());
     }
+
+    @Test
+    public void testGetImg() {
+        Assert.assertEquals("link", testshoes.getImg());
+    }
+
+    @Test
+    public void testSetImg() {
+        testshoes.setImg("aaaaaa");
+        Assert.assertEquals("aaaaaa", testshoes.getImg());
+    }
+
 
     @Test
     public void testSetShoeName() {
@@ -62,32 +74,18 @@ public class ShoesTest {
 
     @Test
     public void testSetShoeSize() throws ShoeSizeException {
-        boolean toosmall = false;
-        boolean toobig = false;
-        try {
-            testshoes.setSize(32);
-        } catch (ShoeSizeException ignored) {
-            toosmall = true;
-        }
-        Assert.assertTrue(toosmall);
-        try {
-            testshoes.setSize(49);
-        } catch (ShoeSizeException ignored) {
-            toobig = true;
-        }
-        Assert.assertTrue(toobig);
-        testshoes.setSize(38);
-        Assert.assertEquals(38, testshoes.getSize());
+        testshoes.setSize(Shoes.Size.Size_37);
+        Assert.assertEquals(Shoes.Size.Size_37, testshoes.getSize());
     }
 
     @Test
     public void testChangeProductDetails() throws ShoeSizeException {
-        testshoes.changeProductDetails("Shoe3", testshoes.getId(), 23.50, testshoes.getCustom(), 39);
+        testshoes.changeProductDetails("Shoe3", testshoes.getId(), 23.50, testshoes.getCustom(), Shoes.Size.Size_39);
         Assert.assertEquals("Shoe3", testshoes.getName());
         Assert.assertEquals(1, testshoes.getId());
         Assert.assertEquals(23.50, testshoes.getPrice(), 0.02);
         Assert.assertFalse(testshoes.getCustom());
-        Assert.assertEquals(39, testshoes.getSize());
+        Assert.assertEquals(Shoes.Size.Size_39, testshoes.getSize());
     }
 
     @Test

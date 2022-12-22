@@ -90,8 +90,8 @@ public class OrderTest {
 
     @Test
     public void getItemsWithPrice() throws ShoeSizeException {
-        Shoes shoes1 = new Shoes("boots", 4, 45.3, false, 36);
-        Shoes shoes2 = new Shoes("heels", 6, 87.9, true, 39);
+        Shoes shoes1 = new Shoes("boots", 4, 45.3, false, Shoes.Size.Size_36,"link");
+        Shoes shoes2 = new Shoes("heels", 6, 87.9, true, Shoes.Size.Size_39,"link");
         List<Shoes> shoesList = new ArrayList<>();
         shoesList.add(shoes1);
         testOrder.setItemsWithPrice(shoesList);
@@ -183,17 +183,17 @@ public class OrderTest {
 
     @Test
     public void setItemsWithPrice() throws ShoeSizeException {
-        Shoes shoes1 = new Shoes("boots", 4, 45.3, false, 36);
-        Shoes shoes2 = new Shoes("heels", 6, 87.9, true, 39);
+        Shoes shoes1 = new Shoes("boots", 4, 45.3, false, Shoes.Size.Size_36,"link");
+        Shoes shoes2 = new Shoes("heels", 6, 87.9, true, Shoes.Size.Size_39,"link");
         List<Shoes> shoesList = new ArrayList<>();
         shoesList.add(shoes1);
         testOrder.setItemsWithPrice(shoesList);
         Assert.assertEquals(4, testOrder.getItemsWithPrice().get(0).getId());
-        Assert.assertEquals(36, testOrder.getItemsWithPrice().get(0).getSize());
+        Assert.assertEquals(Shoes.Size.Size_36, testOrder.getItemsWithPrice().get(0).getSize());
         Assert.assertFalse(testOrder.getItemsWithPrice().get(0).getCustom());
         shoesList.add(shoes2);
         Assert.assertEquals(6, testOrder.getItemsWithPrice().get(1).getId());
-        Assert.assertEquals(39, testOrder.getItemsWithPrice().get(1).getSize());
+        Assert.assertEquals(Shoes.Size.Size_39, testOrder.getItemsWithPrice().get(1).getSize());
         Assert.assertTrue(testOrder.getItemsWithPrice().get(1).getCustom());
     }
 
