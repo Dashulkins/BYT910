@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerTest {
 
@@ -13,7 +14,7 @@ public class CustomerTest {
     @Before
     public void SetUp() throws Exception {
         test_customer = new Customer("Jane", "Dou",
-                "000-000-000" , "username@domain.com", "Qwerty123!");
+                "000-000-000", "username@domain.com", "Qwerty123!");
 
     }
 
@@ -39,7 +40,6 @@ public class CustomerTest {
 
         validPasswords.forEach(v -> Assert.assertTrue(test_customer.isValidPassword(v)));
     }
-
 
 
     @Test
@@ -115,12 +115,10 @@ public class CustomerTest {
     public void testGetOrders() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         ArrayList<Order> orders = new ArrayList<>();
-        orders.add(new Order(1L, LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
+        orders.add(new Order(1L, LocalDateTime.parse("23-12-2021 12:33", formatter), "Warsaw, Koszykowa 86", true));
         test_customer.setOrders(orders);
         Assert.assertEquals("Warsaw, Koszykowa 86", test_customer.getOrders().get(0).getAddress());
     }
-
-
 
 
     //setters test
@@ -163,8 +161,8 @@ public class CustomerTest {
     @Test
     public void testSetOrders() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        ArrayList<Order> orders = new ArrayList<>();
-        orders.add(new Order(1L, LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
+        List<Order> orders = new ArrayList<>();
+        orders.add(new Order(1L, LocalDateTime.parse("23-12-2021 12:33", formatter), "Warsaw, Koszykowa 86", true));
         test_customer.setOrders(orders);
         Assert.assertEquals("Warsaw, Koszykowa 86", test_customer.getOrders().get(0).getAddress());
     }

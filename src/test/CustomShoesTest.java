@@ -1,41 +1,50 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 public class CustomShoesTest {
     CustomShoes testcustom;
+
     @Before
-    public void setUp() throws Exception{
-        testcustom = new CustomShoes("high top blue sneakers",true,"sneakers");
+    public void setUp() throws Exception {
+        testcustom = new CustomShoes("high top blue sneakers", true, "sneakers");
     }
+
     @Test
-    public void testGetDesc(){
-        Assert.assertEquals("high top blue sneakers",testcustom.getDescription());
+    public void testGetDesc() {
+        Assert.assertEquals("high top blue sneakers", testcustom.getDescription());
     }
+
     @Test
-    public void testGetImg(){
-        Assert.assertEquals(true,testcustom.getImg());
+    public void testGetImg() {
+        Assert.assertTrue(testcustom.getImg());
     }
+
     @Test
-    public void testGetType(){
-        Assert.assertEquals("sneakers",testcustom.getCustom_type());
+    public void testGetType() {
+        Assert.assertEquals("sneakers", testcustom.getCustomType());
     }
+
     @Test
-    public void testSetDesc(){
+    public void testSetDesc() {
         testcustom.setDescription("high platform green loafers");
-        Assert.assertEquals("high platform green loafers",testcustom.getDescription());
+        Assert.assertEquals("high platform green loafers", testcustom.getDescription());
     }
+
     @Test
-    public void testSetImg(){
+    public void testSetImg() {
         testcustom.setImg(false);
-        Assert.assertEquals(false,testcustom.getImg());
+        Assert.assertFalse(testcustom.getImg());
     }
+
     @Test
-    public void testSetType(){
-        testcustom.setCustom_type("loafers");
-        Assert.assertEquals("loafers",testcustom.getCustom_type());
+    public void testSetType() {
+        testcustom.setCustomType("loafers");
+        Assert.assertEquals("loafers", testcustom.getCustomType());
     }
+
     @Test
-    public void testCreateCustomShoes(){
+    public void testCreateCustomShoes() {
         Assert.assertTrue(testcustom.CreateCustomShoes());
     }
 }

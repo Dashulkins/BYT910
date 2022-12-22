@@ -1,3 +1,3 @@
-public class NameException extends Exception{
+public class NameException extends Exception {
     static final long serialVersionUID = 1L;
 }

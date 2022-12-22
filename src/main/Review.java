@@ -9,22 +9,22 @@ public class Review {
     private double rating;
     private LocalDate reviewDate;
 
-    public Review (String description, double rating, LocalDate reviewDate) throws StringLengthException, TimeAfterNowException, ReviewRatingException {
+    public Review(String description, double rating, LocalDate reviewDate) throws StringLengthException, TimeAfterNowException, ReviewRatingException {
         this(description, reviewDate);
         setRating(rating);
     }
 
-    public Review (String description, LocalDate reviewDate) throws StringLengthException, TimeAfterNowException {
+    public Review(String description, LocalDate reviewDate) throws StringLengthException, TimeAfterNowException {
         setDescription(description);
         setReviewDate(reviewDate);
     }
 
-    public Review (String description, double rating) throws StringLengthException, TimeAfterNowException, ReviewRatingException {
+    public Review(String description, double rating) throws StringLengthException, TimeAfterNowException, ReviewRatingException {
         this(description);
         setRating(rating);
     }
 
-    public Review (String description) throws StringLengthException, TimeAfterNowException {
+    public Review(String description) throws StringLengthException, TimeAfterNowException {
         setDescription(description);
         setReviewDate(LocalDate.now());
     }
@@ -46,39 +46,39 @@ public class Review {
     }
 
     public void setDescription(String description) throws StringLengthException {
-        if(description.length() < MIN_NUMBER_OF_SYMBOLS){
+        if (description.length() < MIN_NUMBER_OF_SYMBOLS) {
             throw new StringLengthException();
-        }else{
+        } else {
             this.description = description;
         }
     }
 
     public void setRating(double rating) throws ReviewRatingException {
-        if (rating < MIN_RATE || rating > MAX_RATE){
+        if (rating < MIN_RATE || rating > MAX_RATE) {
             throw new ReviewRatingException();
-        }else {
+        } else {
             this.rating = rating;
         }
     }
 
     public void setReviewDate(LocalDate reviewDate) throws TimeAfterNowException {
         LocalDate now = LocalDate.now();
-        if(reviewDate.isAfter(now)){
+        if (reviewDate.isAfter(now)) {
             throw new TimeAfterNowException();
-        }else {
+        } else {
             this.reviewDate = reviewDate;
         }
     }
 
-    public boolean sendReview(){
+    public boolean sendReview() {
         return true;
     }
 
-    public boolean replyToCustomer(){
+    public boolean replyToCustomer() {
         return true;
     }
 
-    public static boolean checkNewReview(){
+    public static boolean checkNewReview() {
         return true;
     }
 }

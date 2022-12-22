@@ -11,11 +11,12 @@ public class Order {
     private List<Shoes> itemsWithPrice;
     private List<Review> reviews;
     private boolean isPaid;
+
     public enum Status {
         DELIVERED, READY_TO_BE_SHIPPED, SHIPPING, ASSEMBLED, CANCELED
     }
 
-    public Order(Long id, LocalDateTime dateOfPlacement, String address, boolean isPaid){
+    public Order(Long id, LocalDateTime dateOfPlacement, String address, boolean isPaid) {
         this.id = id;
         this.dateOfPlacement = dateOfPlacement;
         this.address = address;
@@ -66,7 +67,7 @@ public class Order {
         this.reviews = reviews;
     }
 
-    public boolean getIsPaid(){
+    public boolean getIsPaid() {
         return isPaid;
     }
 
@@ -77,7 +78,7 @@ public class Order {
     public void setAddress(String address) throws StringLengthException {
         if (!address.isEmpty()) {
             this.address = address;
-        }else{
+        } else {
             throw new StringLengthException();
         }
     }
@@ -88,9 +89,9 @@ public class Order {
 
     public void setDateOfPlacement(LocalDateTime dateOfPlacement) throws TimeAfterNowException {
         LocalDateTime now = LocalDateTime.now();
-        if (dateOfPlacement.isAfter(now)){
+        if (dateOfPlacement.isAfter(now)) {
             throw new TimeAfterNowException();
-        }else {
+        } else {
             this.dateOfPlacement = dateOfPlacement;
         }
     }
@@ -135,23 +136,23 @@ public class Order {
         return status;
     }
 
-    public String viewOrder(){
+    public String viewOrder() {
         return toString();
     }
 
-    public boolean sendToEmployee(){
+    public boolean sendToEmployee() {
         return true;
     }
 
-    public boolean generateConfirmationLetter(){
+    public boolean generateConfirmationLetter() {
         return true;
     }
 
-    public void updateDeliveryStatus(Status status){
+    public void updateDeliveryStatus(Status status) {
         setStatus(status);
     }
 
-    public Status checkDeliveryStatus(){
+    public Status checkDeliveryStatus() {
         return getStatus();
     }
 }

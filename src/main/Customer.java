@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class Customer extends User{
+public class Customer extends User {
     private double discount;
     private final static double MAX_DISCOUNT = 0.1;
-    private ArrayList<Order> orders; //association Customer->Orders
+    private List<Order> orders; //association Customer->Orders
 
     public Customer(String fName, String lName, String phone, String email, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException {
         super(fName, lName, phone, email, password);
@@ -16,7 +17,7 @@ public class Customer extends User{
     }
 
     public void setDiscount(double discount) throws CustomerDiscountException {
-        if(discount <= MAX_DISCOUNT) {
+        if (discount <= MAX_DISCOUNT) {
             this.discount = discount;
         } else {
             throw new CustomerDiscountException();
@@ -24,12 +25,12 @@ public class Customer extends User{
 
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
+    public List<Order> getOrders() {
+        return new ArrayList<>(orders);
     }
 
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
+    public void setOrders(List<Order> orders) {
+        this.orders = new ArrayList<>(orders);
     }
 
     @Override

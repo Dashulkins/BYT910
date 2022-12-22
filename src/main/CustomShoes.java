@@ -1,13 +1,13 @@
-
 public class CustomShoes {
     private String description;
     private boolean img;
     private Shoes shoes;
-    private String custom_type;
-    CustomShoes(String description,boolean img, String custom_type) {
+    private String customType;
+
+    CustomShoes(String description, boolean img, String customType) {
         this.description = description;
         this.img = img;
-        this.custom_type = custom_type;
+        this.customType = customType;
     }
 
     public String getDescription() {
@@ -18,8 +18,8 @@ public class CustomShoes {
         return img;
     }
 
-    public String getCustom_type() {
-        return custom_type;
+    public String getCustomType() {
+        return customType;
     }
 
     public void setDescription(String description) {
@@ -30,10 +30,11 @@ public class CustomShoes {
         this.img = img;
     }
 
-    public void setCustom_type(String custom_type) {
-        this.custom_type = custom_type;
+    public void setCustomType(String customType) {
+        this.customType = customType;
     }
-    public boolean CreateCustomShoes(){
+
+    public boolean CreateCustomShoes() {
         return true;
     }
 }

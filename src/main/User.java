@@ -18,7 +18,7 @@ abstract class User {
     private final static Pattern firstLastNamesPattern = Pattern.compile("^[A-Z][a-z]*$");
 
 
-    public User(String fName, String lName, String phone,String email, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException {
+    public User(String fName, String lName, String phone, String email, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException {
         setFirstName(fName);
         setLastName(lName);
         setPhone(phone);
@@ -42,11 +42,12 @@ abstract class User {
         return matcher.matches();
     }
 
-    public boolean isValidPhone(String phone){
+    public boolean isValidPhone(String phone) {
         Matcher matcher = phonePattern.matcher(phone);
         return matcher.matches();
     }
-    public boolean isValidPassword(String password){
+
+    public boolean isValidPassword(String password) {
         Matcher matcher = passwordPattern.matcher(password);
         return matcher.matches();
     }
@@ -59,7 +60,7 @@ abstract class User {
     }
 
     public void setFirstName(String firstName) throws NameException {
-        if(isValidFirstName(firstName)) {
+        if (isValidFirstName(firstName)) {
             this.firstName = firstName;
         } else {
             throw new NameException();
@@ -71,7 +72,7 @@ abstract class User {
     }
 
     public void setLastName(String lastName) throws SurnameException {
-        if(isValidLastName(lastName)) {
+        if (isValidLastName(lastName)) {
             this.lastName = lastName;
         } else {
             throw new SurnameException();
@@ -84,7 +85,7 @@ abstract class User {
     }
 
     public void setPassword(String password) throws PasswordException {
-        if(isValidPassword(password)) {
+        if (isValidPassword(password)) {
             this.password = password;
         } else {
             throw new PasswordException();
@@ -99,7 +100,7 @@ abstract class User {
     public void setEmail(String email) throws EmailException {
         if (isValidEmail(email)) {
             this.email = email;
-        }else {
+        } else {
             throw new EmailException();
         }
 
@@ -110,7 +111,7 @@ abstract class User {
     }
 
     public void setPhone(String phone) throws PhoneException {
-        if(isValidPhone(phone)) {
+        if (isValidPhone(phone)) {
             this.phone = phone;
         } else {
             throw new PhoneException();
@@ -121,16 +122,16 @@ abstract class User {
         if (fName != null) {
             setFirstName(fName);
         }
-        if(lName != null) {
+        if (lName != null) {
             setLastName(lName);
         }
-        if(email != null) {
+        if (email != null) {
             setEmail(email);
         }
-        if(phone != null) {
+        if (phone != null) {
             setPhone(phone);
         }
-        if(password != null) {
+        if (password != null) {
             setPassword(password);
         }
     }
@@ -142,7 +143,6 @@ abstract class User {
 
     public boolean signUp() {
         return true;
-
     }
 
     @Override
@@ -152,6 +152,6 @@ abstract class User {
                         "Last name : " + lastName + '\'' +
                         "Phone : " + phone + '\'' +
                         "Username(email) : " + email + '\'' +
-                        "Password : " + password + '\'' ;
+                        "Password : " + password + '\'';
     }
 }
