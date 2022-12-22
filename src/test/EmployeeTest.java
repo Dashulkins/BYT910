@@ -1,100 +1,92 @@
-import main.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 public class EmployeeTest {
     Employee test_employee;
-    LocalDateTime formatter;
+    DateTimeFormatter formatter;
 
     @Before
     public void SetUp() throws Exception {
-        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        test_employee = new Employee(25.5, "81010200112", 5500.0, 4675.0, LocalDateTime.parse("01-02-2022 08:30",formatter), LocalDateTime.parse("28-02-2022 17:30",formatter));
+         formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        test_employee = new Employee("Jane", "Dou",
+                "000-000-000" , "username@domain.com", "Qwerty123!",25.5, "81010200112", LocalDateTime.parse("01-02-2022 08:30",formatter), LocalDateTime.parse("28-02-2022 17:30",formatter));
     }
 
     @Test
     public void testGetHourlyRate() throws HourlyRateException {
         test_employee.setHourlyRate(25.5);
-        Assert.assertEquals(25.5, test_employee.getHourlyRate(),0);}
+        Assert.assertEquals(Double.valueOf(25.5), test_employee.getHourlyRate());}
 
     @Test
     public void testGetPesel() {
         Assert.assertEquals("81010200112", test_employee.getPesel());
     }
 
-    @Test
-    public void testGetSalary() {
-        Assert.assertEquals(5500, test_employee.getSalary(), 0.02);
-    }
-
-    @Test
-    public void testGetNetSalary() {
-        Assert.assertEquals(4675, test_employee.getNetSalary(), 0.02);
-    }
 
     @Test
     public void testGetHireDate() {
-        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        Assert.assertEquals((LocalDateTime.parse("01-02-2022 08:30", formatter)), test_employee.getHireDate());
+        Assert.assertEquals(LocalDateTime.parse("01-02-2022 08:30", formatter), test_employee.getHireDate());
 
     }
 
     @Test
     public void testGetFinishDate() {
-        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        Assert.assertEquals((LocalDateTime.parse("28-02-2022 17:30",formatter)), test_employee.getFinishDate());
+        Assert.assertEquals(LocalDateTime.parse("28-02-2022 17:30",formatter), test_employee.getFinishDate());
 
     }
 
     @Test
     public void testSetHourlyRate() throws HourlyRateException {
         test_employee.setHourlyRate(25.5);
-        Assert.assertEquals(25.5, test_employee.getHourlyRate(),0);
+        Assert.assertEquals(Double.valueOf(25.5), test_employee.getHourlyRate());
     }
 
     @Test
     public void testSetPesel() throws EmpPeselException {
         test_employee.setPesel("81010200112");
-        {
-            Assert.assertEquals("81010200112", test_employee.getPesel());
+        Assert.assertEquals("81010200112", test_employee.getPesel());
+
+    }
+
+
+    @Test
+    public void setHireDate() throws TimeAfterNowException {
+        test_employee.setHireDate(LocalDateTime.parse("21-04-2022 08:30", formatter));
+        Assert.assertEquals("21-04-2022 08:30", test_employee.getHireDate().format(formatter));
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime future = now.plusMonths(Long.valueOf(1));
+        boolean isFuture = false;
+        try {
+            test_employee.setHireDate(future);
+        }catch (TimeAfterNowException ignored){
+            isFuture = true;
         }
-    }
-
-    @Test
-    public void testSetSalary() {
-        test_employee.setSalary();
-        Assert.assertEquals(5500, test_employee.getSalary(), 0.02);
-    }
-
-    @Test
-    public void setNetSalary() {
-        test_employee.setNetSalary(4675, 825);
-        Assert.assertEquals(4675, test_employee.getNetSalary(), 0.02);
-    }
-
-    @Test
-    public void setHireDate() {
-        test_employee.setHireDate();
+        Assert.assertTrue(isFuture);
     }
 
     @Test
     public void setFinishDate() {
-        test_employee.setFinishDate();
+        test_employee.setFinishDate(LocalDateTime.parse("21-05-2023 10:00", formatter));
+        Assert.assertEquals("21-05-2023 10:00", test_employee.getFinishDate().format(formatter));
     }
 
     @Test
     public void testCalculateWorkingHours() {
-        Assert.assertTrue(test_employee.CalculateWorkingHours());
+        Assert.assertEquals(Integer.valueOf(22*8), Integer.valueOf(test_employee.CalculateWorkingHours()));
     }
-    //@Test
-    // public void testCalculateSalary(){Assert.assertEquals(test_employee.CalculateSalary(15););}
+
     @Test
-    public void testPeselValidation() throws EmpPeselException{
-        Assert.assertTrue("81010200112", true);
+     public void testCalculateSalary(){
+        Assert.assertEquals(Double.valueOf(22*8*test_employee.getHourlyRate()), test_employee.CalculateSalary());
+    }
+
+
+    @Test
+    public void testPeselValidation(){
+        Assert.assertTrue(Employee.PeselValidation("81010200112"));
+        Assert.assertFalse(Employee.PeselValidation("81010sfkfsjnfk"));
     }
 }

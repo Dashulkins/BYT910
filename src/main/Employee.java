@@ -1,42 +1,36 @@
 import java.time.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Employee extends User{
     private Role role;
     private Double hourlyRate;
     private String pesel;
-    private Double salary;
-    private Double netSalary;
-    LocalDateTime hireDate;
-    LocalDateTime finishDate;
+    private LocalDateTime hireDate;
+    private LocalDateTime finishDate;
     private final static double MIN_HOUR_RATE = 20.0;
-    private final static double WORKING_DAYS = 30;
+    private final static int WORKING_DAYS = 22;
+    private final static int WORKING_HOURS_PER_DAY = 8;
+    private final static String PESEL_REGEX = "\\d{11}";
+    private final static Pattern peselPattern = Pattern.compile(PESEL_REGEX);
 
-    public Employee(Double hourlyRate, String pesel, Double salary, Double netSalary,LocalDateTime hireDate, LocalDateTime finishDate ) throws HourlyRateException{
-        this.hourlyRate = hourlyRate;
-        this.pesel = pesel;
-        this.salary = salary;
-        this.netSalary = netSalary;
-        this.hireDate = hireDate;
-        this.finishDate = finishDate;
-    }
-
-    public Employee(String fName, String lName, String phone, String email, String password) throws NameException, EmailException, PhoneException, PasswordException, SurnameException {
+    public Employee(String fName, String lName, String phone, String email, String password, Double hourlyRate, String pesel, LocalDateTime hireDate, LocalDateTime finishDate ) throws PasswordException, EmailException, PhoneException, SurnameException, NameException, EmpPeselException, HourlyRateException, TimeAfterNowException {
         super(fName, lName, phone, email, password);
+        this.setHourlyRate(hourlyRate);
+        this.setPesel(pesel);
+        this.setHireDate(hireDate);
+        this.setFinishDate(finishDate);
     }
 
     public Double getHourlyRate() {return hourlyRate; }
 
     public String getPesel() {return pesel;}
 
-    public Double getSalary() {return salary;}
-
-    public Double getNetSalary() {return netSalary;}
-
     public LocalDateTime getHireDate() {return hireDate;}
 
     public LocalDateTime getFinishDate() {return finishDate;}
 
-    public void setHourlyRate(double hourlyRate)  throws HourlyRateException{
+    public void setHourlyRate(Double hourlyRate)  throws HourlyRateException{
         if (hourlyRate < MIN_HOUR_RATE){
             throw new HourlyRateException();
         }else {
@@ -44,37 +38,37 @@ public class Employee extends User{
         }
     }
 
-    public boolean setPesel(String pesel) throws  EmpPeselException {
-        if (!pesel.isEmpty()) {
-            return PeselValidation("");
+    public void setPesel(String pesel) throws  EmpPeselException {
+        if (PeselValidation(pesel)){
+            this.pesel = pesel;
         } else {
             throw new EmpPeselException();
         }
     }
 
-    public void setSalary() {
-        double salary = hourlyRate * WORKING_DAYS;
+    public void setHireDate(LocalDateTime hireDate) throws TimeAfterNowException {
+        LocalDateTime now = LocalDateTime.now();
+        if (hireDate.isAfter(now)){
+            throw new TimeAfterNowException();
+        }else {
+            this.hireDate = hireDate;
+        }
     }
 
-    public void setNetSalary(double netSalary, double taxAmount) {
-        netSalary = salary - taxAmount;
+    public void setFinishDate(LocalDateTime finishDate){
+        this.finishDate = finishDate;
     }
 
-    public void setHireDate() {
+    public int CalculateWorkingHours(){
+        return WORKING_DAYS * WORKING_HOURS_PER_DAY;
     }
 
-    public void setFinishDate() {
+    public Double CalculateSalary(){
+        return this.getHourlyRate() * CalculateWorkingHours();
     }
 
-    public boolean CalculateWorkingHours() {
-        return true;
-    }
-    public void CalculateSalary(int taxPercentage) {
-        double taxAmount = salary * (taxPercentage / 100.0);
-        netSalary = salary - taxAmount;
-    }
-
-    public static boolean PeselValidation(String pesel) throws EmpPeselException {
-        return pesel.length() == 11;
+    public static boolean PeselValidation(String pesel){
+        Matcher matcher = peselPattern.matcher(pesel);
+        return matcher.matches();
     }
 }
