@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeTest {
     Employee testEmployee;
@@ -98,5 +100,14 @@ public class EmployeeTest {
     public void testPeselValidation() {
         Assert.assertTrue(Employee.peselValidation("81010200112"));
         Assert.assertFalse(Employee.peselValidation("81010sfkfsjnfk"));
+    }
+
+    @Test
+    public void testEmployeeRoleChanging() {
+        Assert.assertEquals(new ArrayList<>(), testEmployee.getRole());
+        Role role1 = new Role("role1", 1, "change product details");
+        Role role2 = new Role("role2", 2, "change product details");
+        testEmployee.setRole(List.of(role1, role2));
+        Assert.assertEquals(List.of(role1, role2), testEmployee.getRole());
     }
 }

@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Employee extends User {
-    private final List<Role> role;
+    private List<Role> role;
     private Double hourlyRate;
     private String pesel;
     private LocalDateTime hireDate;
@@ -39,6 +39,14 @@ public class Employee extends User {
 
     public LocalDateTime getFinishDate() {
         return finishDate;
+    }
+
+    public List<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(List<Role> role) {
+        this.role = role;
     }
 
     public void setHourlyRate(Double hourlyRate) throws HourlyRateException {
