@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Shoes {
 
@@ -16,6 +18,7 @@ public class Shoes {
     private double price;
     private boolean isCustom;
     private Size size;
+    private List<Customization> customizations;
 
     Shoes(String name, int id, double price, boolean isCustom, Size size, String img) throws ShoeSizeException {
         this.name = name;
@@ -24,6 +27,7 @@ public class Shoes {
         this.isCustom = isCustom;
         this.img = img;
         this.setSize(size);
+        this.customizations = new ArrayList<>();
     }
 
     public String getName() {
