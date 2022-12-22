@@ -13,7 +13,7 @@ abstract class User {
     private final static Pattern passwordPattern = Pattern.compile(PASSWORD_REGEX);
     private final static String PHONE_REGEX = "^(\\d{3}[- .]?){2}\\d{3}$";
     private final static Pattern phonePattern = Pattern.compile(PHONE_REGEX);
-    private final static String EMAIL_REGEX = "^(.+)@(\\S+)$";
+    private final static String EMAIL_REGEX = "^(\\S+)@(\\S+)$";
     private final static Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
     private final static Pattern firstLastNamesPattern = Pattern.compile("^[A-Z][a-z]*$");
 

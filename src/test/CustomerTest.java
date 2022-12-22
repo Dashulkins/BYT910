@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class CustomerTest {
     @Test
     public void testValidateEmail() {
         String valid = "jane12345@gmail.com";
-        String invalid = "hgdtefe";
+        String invalid = "hgdte   fe@mf.com";
 
         Assert.assertTrue(test_customer.isValidEmail(valid));
         Assert.assertFalse(test_customer.isValidEmail(invalid));
@@ -116,7 +115,7 @@ public class CustomerTest {
     public void testGetOrders() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         ArrayList<Order> orders = new ArrayList<>();
-        orders.add(new Order(Long.valueOf(1), LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
+        orders.add(new Order(1L, LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
         test_customer.setOrders(orders);
         Assert.assertEquals("Warsaw, Koszykowa 86", test_customer.getOrders().get(0).getAddress());
     }
@@ -165,7 +164,7 @@ public class CustomerTest {
     public void testSetOrders() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         ArrayList<Order> orders = new ArrayList<>();
-        orders.add(new Order(Long.valueOf(1), LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
+        orders.add(new Order(1L, LocalDateTime.parse("23-12-2021 12:33",formatter), "Warsaw, Koszykowa 86",true));
         test_customer.setOrders(orders);
         Assert.assertEquals("Warsaw, Koszykowa 86", test_customer.getOrders().get(0).getAddress());
     }
